@@ -49,42 +49,6 @@ The `get_option_chain_data` function retrieves option chain data for a specified
 
 4. **DataFrame Creation**:
    - Converts the list of option data into a Pandas DataFrame and returns it.
-
-### Example Usage
-```python
-from get_option_chain import get_option_chain_data
-
-# Example function call
-df = get_option_chain_data('NIFTY', '2024-06-19', 'PE')
-print(df)
-Environment Variables
-To use this function, ensure you have a .env file in your project directory with the following structure:
-
-makefile
-Copy code
-API_ACCESS_TOKEN=your_access_token_here
-Usage
-To use the functions, ensure your environment is configured as follows:
-
-Install dependencies:
-
-bash
-Copy code
-pip install -r requirements.txt
-Run the scripts:
-
-python
-Copy code
-from calculate_margin_and_premium import calculate_margin_and_premium
-from get_option_chain import get_option_chain_data
-Create an .env file in the project root with the following structure:
-
-makefile
-Copy code
-API_ACCESS_TOKEN=your_access_token_here
-Conclusion
-This project provides an efficient way to access and analyze option chain data for financial instruments, helping traders make informed decisions based on margin and premium calculations.
-
 ## AI Tools Used
 In this project, the following AI tools were utilized to assist with development and data analysis:
 
@@ -124,3 +88,40 @@ To improve your understanding, consider:
 - **Reading Resources**: Look for articles or books on stock trading, especially focusing on options trading strategies.
 - **API Documentation**: Check Upstox's API documentation for detailed information on how to use their endpoints.
 - **Online Courses**: Many platforms offer courses on stock trading, options trading, and using APIs in Python.
+
+
+### Example Usage
+```python
+from get_option_chain import get_option_chain_data
+
+# Example function call
+df = get_option_chain_data('NIFTY', '2024-06-19', 'PE')
+print(df)
+Environment Variables
+To use this function, ensure you have a .env file in your project directory with the following structure:
+
+makefile
+Copy code
+API_ACCESS_TOKEN=your_access_token_here
+Usage
+To use the functions, ensure your environment is configured as follows:
+
+Install dependencies:
+
+bash
+Copy code
+pip install -r requirements.txt
+Run the scripts:
+
+python
+Copy code
+from calculate_margin_and_premium import calculate_margin_and_premium
+from get_option_chain import get_option_chain_data
+Create an .env file in the project root with the following structure:
+
+makefile
+Copy code
+API_ACCESS_TOKEN=your_access_token_here
+Conclusion
+This project provides an efficient way to access and analyze option chain data for financial instruments, helping traders make informed decisions based on margin and premium calculations.
+
