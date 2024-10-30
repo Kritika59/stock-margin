@@ -78,7 +78,7 @@ In this project, the following AI tools were utilized to assist with development
    - **Open Interest Analysis**: Gauging market sentiment and potential price movements based on the number of open contracts.
    - **Profit/Loss Calculations**: Estimating potential profits or losses based on different scenarios.
 
-### Your Code’s Role
+### Code’s Role
 In this project, the provided code accomplishes the following:
 - **Data Retrieval**: The code retrieves option chain data from the Upstox API based on the specified instrument (like NIFTY) and expiry date.
 - **Margin and Premium Calculations**: It calculates the margin required for trading options and the premium earned from selling options.
