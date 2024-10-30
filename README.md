@@ -85,7 +85,3 @@ API_ACCESS_TOKEN=your_access_token_here
 Conclusion
 This project provides an efficient way to access and analyze option chain data for financial instruments, helping traders make informed decisions based on margin and premium calculations.
 
-sql
-Copy code
-
-Feel free to copy this Markdown code into a file named `README.md` in your GitH
