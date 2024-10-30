@@ -1,58 +1,91 @@
-# Stock-Margin
+# Stock-Margin Project
 
-Stock-Margin is a Python tool that leverages financial data from Upstox APIs to calculate margin requirements and premium earnings for options trading. It fetches option chain data for a given instrument and expiry date, computes margin and premium values, and exports the data to Excel for easy reference.
+## Overview
+The Stock-Margin project is a Python tool that leverages financial data from Upstox APIs to calculate margin requirements and premium earnings for options trading. It fetches option chain data for a given instrument and expiry date, computes margin and premium values, and exports the data to Excel for easy reference.
 
 ## Project Structure
-
 The project consists of two main files:
 
-1. **`calculate_margin_and_premium.py`**  
-   - Fetches margin requirements and calculates premium earned based on lot size.
-   - Requires an Upstox API access token and instrument details as inputs.
+- **calculate_margin_and_premium.py**: 
+  - Fetches margin requirements and calculates premium earned based on lot size.
+  - Requires an Upstox API access token and instrument details as inputs.
 
-2. **`get_option_chain.py`**
-   - Retrieves option chain data using Upstox API and formats it into a structured DataFrame.
-   - Exports the option chain data to an Excel sheet for analysis.
+- **get_option_chain.py**: 
+  - Retrieves option chain data using Upstox API and formats it into a structured DataFrame.
+  - Exports the option chain data to an Excel sheet for analysis.
 
-## Code Logic & Approach
+## Function: `get_option_chain_data`
 
-### `calculate_margin_and_premium.py`
+### Overview
+The `get_option_chain_data` function retrieves option chain data for a specified financial instrument (like NIFTY or BANKNIFTY) on a given expiry date. It fetches the highest bid price for put options (PE) or the highest ask price for call options (CE) and returns this data in a structured Pandas DataFrame.
 
-1. **Validate Input Data:** Ensures necessary columns are present in the DataFrame.
-2. **API Request:** Sends a request to fetch margin requirements for each row in the DataFrame, which includes details like `instrument_name`, `strike_price`, and `side`.
-3. **Premium Calculation:** Computes premium earned based on `bid_ask` and `lot_size`.
-4. **Return Data:** The function returns the DataFrame with additional columns for margin and premium values.
+### Inputs
+- **instrument_name**: A string representing the name of the instrument (e.g., 'NIFTY' or 'BANKNIFTY').
+- **expiry_date**: A string representing the expiration date of the options in `YYYY-MM-DD` format.
+- **side**: A string that indicates the type of option to retrieve. Use "PE" for Put options and "CE" for Call options.
 
-### `get_option_chain.py`
+### Returns
+- A Pandas DataFrame with the following columns:
+  - **instrument_name**: Name of the financial instrument.
+  - **strike_price**: The strike price of the options.
+  - **side**: The type of option ('PE' or 'CE').
+  - **bid/ask**: The highest bid price for PE options or the highest ask price for CE options.
 
-1. **API Request:** Retrieves option chain data for the specified instrument and expiry date from Upstox.
-2. **Data Processing:** Extracts option chain information, including Greeks (Delta, Gamma, Vega, Theta, etc.), and stores them in a structured DataFrame.
-3. **Excel Export:** Writes the option chain data to an Excel sheet using `xlwings`.
+### Code Logic
+1. **Environment Variable Loading**:
+   - The function utilizes the `dotenv` package to load environment variables from a `.env` file, which is used to securely store the API access token.
+   - The access token is retrieved from an environment variable named `API_ACCESS_TOKEN`.
 
-## Usage
+2. **API Request**:
+   - Constructs the API endpoint URL and request parameters.
+   - Sends a GET request to the Upstox API to retrieve option chain data.
+   - Checks for HTTP errors and handles exceptions by printing an error message.
 
+3. **Data Parsing**:
+   - Initializes an empty list to store the parsed data.
+   - Iterates over the retrieved option chain data:
+     - Extracts the strike price and either the best bid price for PE options or the best ask price for CE options.
+     - Appends the gathered data to the list in a structured format.
+
+4. **DataFrame Creation**:
+   - Converts the list of option data into a Pandas DataFrame and returns it.
+
+### Example Usage
+```python
+from get_option_chain import get_option_chain_data
+
+# Example function call
+df = get_option_chain_data('NIFTY', '2024-06-19', 'PE')
+print(df)
+Environment Variables
+To use this function, ensure you have a .env file in your project directory with the following structure:
+
+makefile
+Copy code
+API_ACCESS_TOKEN=your_access_token_here
+Usage
 To use the functions, ensure your environment is configured as follows:
 
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
+Install dependencies:
 
-2. Configure environment variables by creating a .env file and providing your API access token.
+bash
+Copy code
+pip install -r requirements.txt
+Run the scripts:
 
-3. Run the scripts:
-     ```
-       from calculate_margin_and_premium import calculate_margin_and_premium
-       from get_option_chain import getOptionchain
+python
+Copy code
+from calculate_margin_and_premium import calculate_margin_and_premium
+from get_option_chain import get_option_chain_data
+Create an .env file in the project root with the following structure:
 
-## Environment Variables Example:
-   Create an .env file in the project root with the following structure:
+makefile
+Copy code
+API_ACCESS_TOKEN=your_access_token_here
+Conclusion
+This project provides an efficient way to access and analyze option chain data for financial instruments, helping traders make informed decisions based on margin and premium calculations.
 
-       UPSTOX_ACCESS_TOKEN=your_access_token_here
+sql
+Copy code
 
-
-## Dependencies:
-   All dependencies are listed in requirements.txt. Key libraries include:
-   
-   *  requests: For API requests.
-   *  pandas: For data manipulation.
-   *  xlwings: For exporting data to Excel.
+Feel free to copy this Markdown code into a file named `README.md` in your GitH
